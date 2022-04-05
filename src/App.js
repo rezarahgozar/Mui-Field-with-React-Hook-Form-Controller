@@ -1,23 +1,34 @@
-import logo from './logo.svg';
+import { Button } from '@mui/material';
+import { Controller, useForm } from 'react-hook-form';
 import './App.css';
+import { StarField } from './components/StarField';
 
 function App() {
+  
+  const{control,handleSubmit} = useForm({
+
+    defaultValues:{
+      rate:0
+    }
+
+  });
+
+  const onSubmit = (values) => {
+    console.log(values);
+  }
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div >
+    <form onSubmit={handleSubmit(onSubmit)}>
+    <Controller
+    control={control}
+    name="rate"
+    render={({field})=>(
+      <StarField {...field} />
+    )}
+    />
+    <Button type="submit">Submit</Button>
+    </form>
     </div>
   );
 }
